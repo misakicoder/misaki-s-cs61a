@@ -15,7 +15,7 @@ def a_plus_abs_b(a, b):
     if b < 0:
         f = sub
     else:
-        f = add(a,b)
+        f = add
     return f(a, b)
 
 
@@ -37,7 +37,7 @@ def two_of_three(x, y, z):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(two_of_three)).body[0].body]
     ['Expr', 'Return']
     """
-    return min(x^2+y^2,x^2+z^2,y^2+z^2)
+    return min(x*x+y*y,x*x+z*z,y*y+z*z)
 
 
 def largest_factor(n):
@@ -132,15 +132,14 @@ def hailstone(n):
     """
     "*** YOUR CODE HERE ***"
     i = 1
-    temp = n
-    while temp != 1:
-        print(temp)
-        if temp % 2 == 0:
-            temp = temp / 2
+    while n != 1:
+        print(n)
+        if n % 2 == 0:
+            n = n // 2
         else:
-            temp = 3 * temp + 1
+            n = 3 * n + 1
         i += 1
-    print(temp)
+    print(n)
     return i
 
 
