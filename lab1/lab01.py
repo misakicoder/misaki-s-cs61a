@@ -1,3 +1,6 @@
+from itertools import product
+
+
 def falling(n, k):
     """Compute the falling factorial of n to depth k.
 
@@ -11,6 +14,12 @@ def falling(n, k):
     1
     """
     "*** YOUR CODE HERE ***"
+    product = 1
+    while k > 0:
+        product *= n
+        n -= 1
+        k -= 1
+    return product
 
 
 
@@ -28,7 +37,11 @@ def sum_digits(y):
     6
     """
     "*** YOUR CODE HERE ***"
-
+    sum = 0
+    while y > 0:
+        sum += y % 10
+        y = y // 10
+    return sum
 
 
 def double_eights(n):
@@ -47,5 +60,14 @@ def double_eights(n):
     False
     """
     "*** YOUR CODE HERE ***"
-
+    while n > 0:
+        if n % 10 == 8:
+            n = n // 10
+            if n % 10 == 8:
+                return True
+            else:
+                n = n // 10
+        else:
+            n = n // 10
+    return False
 
