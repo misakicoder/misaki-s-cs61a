@@ -1,3 +1,7 @@
+from concurrent.futures import process
+from operator import index
+
+
 LAB_SOURCE_FILE = __file__
 
 
@@ -153,4 +157,15 @@ def add_chars(w1, w2):
     True
     """
     "*** YOUR CODE HERE ***"
-    
+    def process(w1,w2,index1,index2):
+        if index2 >= len(w2):
+            return ""
+        elif w1 != None and index1 >= len(w1):
+            return str(process(None,w2,index1,index2))
+        else:
+            if w1 != None and w1[index1] == w2[index2]:
+                return str(process(w1,w2,index1 + 1,index2 + 1))
+            if w1 == None or w1[index1] != w2[index2]:
+                return str(w2[index2]) + str(process(w1,w2,index1,index2 + 1))
+    return process(w1,w2,0,0)
+
