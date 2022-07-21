@@ -1,3 +1,7 @@
+from functools import total_ordering
+from pydoc import Helper
+
+
 HW_SOURCE_FILE=__file__
 
 
@@ -23,8 +27,16 @@ def num_eights(x):
     True
     """
     "*** YOUR CODE HERE ***"
+    if x == 0:
+        return 0
+    else:
+        if x % 10 == 8:
+            return 1 + num_eights(x // 10)
+        else:
+            return num_eights(x // 10)
 
 
+#不会
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
 
@@ -58,6 +70,19 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n == 0:
+        return 0
+    else:
+        return pingpong(n-1) + dir(n-1)
+
+def dir(n):
+    if n <= 7:
+        return 1
+    else:
+        if n % 8 == 0 or num_eights(n) > 0:
+            return dir(n-1) * -1
+        else:
+            return dir(n-1) * 1
 
 
 def missing_digits(n):
@@ -88,8 +113,20 @@ def missing_digits(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n < 10:
+        return 0
+    else:
+        last = n % 10
+        n = n // 10
+        last_second =  n % 10
+        if last > last_second:
+            return missing_digits(n) + (last-last_second-1)
+        else:
+            return missing_digits(n) + (last-last_second)
 
 
+
+#不会
 def next_largest_coin(coin):
     """Return the next coin. 
     >>> next_largest_coin(1)
@@ -106,6 +143,14 @@ def next_largest_coin(coin):
         return 10
     elif coin == 10:
         return 25
+
+def pre_largest_coin(coin):
+    if coin == 25:
+        return 10
+    elif coin == 10:
+        return 5
+    elif coin == 5:
+        return 1
 
 
 def count_coins(total):
@@ -124,6 +169,15 @@ def count_coins(total):
     True
     """
     "*** YOUR CODE HERE ***"
+    def process(total,upper):
+        if total == 0 or upper == 1:
+            return 1
+        elif total < 0:
+            return 0
+        else:
+            return process(total-upper,upper) + process(total,pre_largest_coin(upper))
+    return process(total,25)
+
 
 
 from operator import sub, mul
@@ -138,5 +192,6 @@ def make_anonymous_factorial():
     >>> check(HW_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    
+    return lambda f,x:1 if x == 1 else  x*f(f,(x - 1))
 

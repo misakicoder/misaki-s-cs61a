@@ -110,6 +110,7 @@ def composite_identity(f, g):
 
 
 
+#不会
 def cycle(f1, f2, f3):
     """Returns a function that is itself a higher-order function.
 
