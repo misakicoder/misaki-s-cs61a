@@ -118,5 +118,4 @@ def sprout_leaves(t, leaves):
             sprout_leaves(branch,leaves)
     return t
 
-sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
-print(berry_finder(sproul))
+print(tree(3,[tree(2,[tree(3,[tree(2)])])]))
