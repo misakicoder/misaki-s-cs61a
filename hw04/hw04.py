@@ -20,6 +20,17 @@ def make_bank(balance):
     """
     def bank(message, amount):
         "*** YOUR CODE HERE ***"
+        nonlocal balance
+        if message == 'withdraw':
+            if amount > balance:
+                return 'Insufficient funds'
+            balance = balance - amount
+            return balance
+        elif message == 'deposit':
+            balance = balance + amount
+            return balance
+        else:
+            return 'Invalid message'
     return bank
 
 
@@ -52,7 +63,22 @@ def make_withdraw(balance, password):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    error_password = []
+    error_num = 0
+    def password_withdraw(amount,input_passord):
+        nonlocal password,error_num,balance,error_password
+        if error_num >= 3:
+            return 'Frozen account. Attempts: ' + str(error_password)
+        elif input_passord == password:
+            if amount > balance:
+                return 'Insufficient funds'
+            balance = balance - amount
+            return balance
+        elif input_passord != password and error_num < 3:
+            error_password.append(input_passord)
+            error_num += 1
+            return 'Incorrect password'
+    return password_withdraw
 
 def repeated(t, k):
     """Return the first value in iterator T that appears K times in a row. Iterate through the items such that
@@ -76,7 +102,18 @@ def repeated(t, k):
     """
     assert k > 1
     "*** YOUR CODE HERE ***"
-
+    appear_times = 1    
+    pre = next(t)
+    while 1:
+        temp = next(t)
+        if temp == pre:
+            appear_times += 1
+            if appear_times == k:
+                return pre
+        elif temp != pre:
+            appear_times = 1
+            pre = temp
+        
 
 def permutations(seq):
     """Generates all permutations of the given sequence. Each permutation is a
@@ -101,7 +138,15 @@ def permutations(seq):
     [['a', 'b'], ['b', 'a']]
     """
     "*** YOUR CODE HERE ***"
-
+    if type(seq) != list:
+        seq = list(seq)
+    if len(seq) == 1:
+        yield seq
+    else:
+        for elem in permutations(seq[1:]):
+            for i in range(len(seq)):
+                yield elem[:i] + seq[0:1] + elem[i:]
+    
 
 def make_joint(withdraw, old_pass, new_pass):
     """Return a password-protected withdraw function that has joint access to
