@@ -1,3 +1,7 @@
+from doctest import IGNORE_EXCEPTION_DETAIL
+from unittest import result
+
+
 this_file = __file__
 
 
@@ -17,7 +21,12 @@ def make_adder_inc(a):
     11
     """
     "*** YOUR CODE HERE ***"
-
+    def add(b):
+        nonlocal a
+        result = a + b
+        a += 1
+        return result
+    return add
 
 def make_fib():
     """Returns a function that returns the next Fibonacci number
@@ -43,6 +52,13 @@ def make_fib():
     True
     """
     "*** YOUR CODE HERE ***"
+    a , b = 0 , 1
+    def fib():
+        nonlocal a,b
+        result = a
+        a , b = b , a + b
+        return result
+    return fib
 
 
 def insert_items(lst, entry, elem):
@@ -62,4 +78,14 @@ def insert_items(lst, entry, elem):
     True
     """
     "*** YOUR CODE HERE ***"
+    i = 0
+    index = 1
+    while i < len(lst):
+        if lst[i] == entry:
+            lst.insert(index,elem)
+            i += 1
+            index += 1
+        i += 1
+        index += 1  
+    return lst
 
